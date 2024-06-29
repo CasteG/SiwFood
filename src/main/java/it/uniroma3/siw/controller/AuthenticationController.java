@@ -59,18 +59,24 @@ public class AuthenticationController {
 	
 	@GetMapping("/")
 	public String index(Model model) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if(authentication instanceof AnonymousAuthenticationToken) {
-			return "index.html";
-		}
-		else {
-			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication();
-			Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
-			if(credentials.getRole().equals(Credentials.ADMIN_ROLE)) 
-				return "admin/indexAdmin.html";
-		}
-		return "index.html";
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    if (authentication instanceof AnonymousAuthenticationToken) {
+	        return "index.html";
+	    } else {
+	        // Ottieni il Principal e fai il cast a UserDetails
+	        Object principal = authentication.getPrincipal();
+	        if (principal instanceof UserDetails) {
+	            UserDetails userDetails = (UserDetails) principal;
+	            Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
+	            if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
+	                //return "admin/indexAdmin.html";
+	            	return "index.html";
+	            }
+	        }
+	    }
+	    return "index.html";
 	}
+
 	
 	@GetMapping("/success")
     public String defaultAfterLogin(Model model) {

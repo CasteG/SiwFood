@@ -38,7 +38,7 @@ public class ChefController {
 	@GetMapping("/admin/formNewChef")
 	public String formNewChef(Model model) {
 		model.addAttribute("chef", new Chef());
-		return "formNewChef.html";
+		return "admin/formNewChef.html";
 	}
 	
 	@PostMapping("/chef")
@@ -51,7 +51,8 @@ public class ChefController {
 			return "redirect:chef/"+chef.getId();
 		}
 		else 
-			return "formNewChef.html";
+			model.addAttribute("chefs", this.chefService.findAll());
+			return "admin/formNewChef.html";
 		
 	}
 	

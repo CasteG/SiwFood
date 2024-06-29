@@ -6,13 +6,14 @@
   </head>
 
   <body>
-    <div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+    <div><a href="/">Home</a></div>
     <h1>Ingredienti</h1>
     <div th:if="${ingredients.isEmpty()}">Non ci sono ingredienti nel sistema</div>
     <ul>
       <li th:each="ingredient : ${ingredients}">
-        <span th:text="${ingredient}">Besciamella</span>
-      </li>
+		<a th:href="@{'/ingredient' + '/' + ${ingredient.id}}"
+           th:text="${ingredient}">Besciamella</a>      
+           </li>
     </ul>
   </body>
 </html>

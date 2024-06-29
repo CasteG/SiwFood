@@ -6,11 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.model.Ingredient;
 import it.uniroma3.siw.service.IngredientService;
 import it.uniroma3.siw.validator.IngredientValidator;
+import jakarta.validation.Valid;
 
 @Controller
 public class IngredientController {
@@ -27,23 +29,31 @@ public class IngredientController {
 		return "ingredients.html";
 	}
 	
+	@GetMapping("/ingredient/{id}")
+	public String getIngredient(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("ingredient", ingredientService.findById(id));
+		return "ingredient.html";
+	}
+	
 	@GetMapping("/admin/formNewIngredient")
 	public String formNewIngredient(Model model) {
 		model.addAttribute("ingredient", new Ingredient());
-		return "formNewIngredient";
+		return "admin/formNewIngredient.html";
 	}
 	
 	@PostMapping("/ingredient")
-	public String newIngredient(@ModelAttribute("ingredient") Ingredient ingredient,
+	public String newIngredient(@Valid @ModelAttribute("ingredient") Ingredient ingredient,
 			BindingResult bindingResult, Model model) {
+		
 		this.ingredientValidator.validate(ingredient, bindingResult);
 		if(!bindingResult.hasErrors()) {
 			this.ingredientService.save(ingredient);
-			return "redirect:/ingredient";
+			model.addAttribute("ingredient", ingredient);
+			return "redirect:ingredient/"+ingredient.getId();
 		}
 		else {
-			model.addAttribute("ingredients", this.ingredientService.findAll());
-			return "formNewIngredient.html";
+			model.addAttribute("ingredient", ingredient);
+			return "admin/formNewIngredient.html";
 		}
 	}
 	

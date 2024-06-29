@@ -48,7 +48,7 @@ public class RecipeController {
 	public String formNewRecipe(Model model) {
 		model.addAttribute("recipe", new Recipe());
 		model.addAttribute("chefs", this.chefService.findAll());
-		return "formNewRecipe.html";
+		return "admin/formNewRecipe.html";
 	}
 
 	@PostMapping("/recipe")
@@ -60,7 +60,7 @@ public class RecipeController {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("recipe", recipe);
 			model.addAttribute("chefs", this.chefService.findAll());
-			return "formNewRecipe.html";
+			return "admin/formNewRecipe.html";
 		}
 		else {
 			Image img = new Image(image.getBytes());
@@ -98,26 +98,26 @@ public class RecipeController {
 	
 	@GetMapping("/admin/indexRecipe")
 	public String indexRecipe(Model model) {
-		return "indexRecipe.html";
+		return "admin/indexRecipe.html";
 	}
 	
 	@GetMapping("/admin/manageRecipes")
 	public String manageRecipes(Model model) {
 		model.addAttribute("recipes", this.recipeService.findAll());
-		return "manageRecipes.html";
+		return "admin/manageRecipes.html";
 	}
 	
 	@GetMapping("/admin/formUpdateRecipe/{id}")
 	public String updateRecipe(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("recipe", this.recipeService.findById(id));
-		return "formUpdateRecipe.html";
+		return "admin/formUpdateRecipe.html";
 	}
 
 	@GetMapping("/admin/updateChef/{idRecipe}")
 	public String updateChef(@PathVariable("idRecipe") Long id, Model model) {
 		model.addAttribute("recipe",this.recipeService.findById(id));
 		model.addAttribute("chefs", this.chefService.findAll());
-		return "updateChef.html";
+		return "admin/updateChef.html";
 	}
 
 	@GetMapping("/admin/updateIngredients/{idRecipe}")
@@ -125,7 +125,7 @@ public class RecipeController {
 		Recipe recipe = this.recipeService.findById(id);
 		model.addAttribute("recipe", recipe);
 		model.addAttribute("ingredients", this.ingredientService.findAvailableIngredients(recipe.getRecipeIngredients()));
-		return "updateIngredients.html";
+		return "admin/updateIngredients.html";
 	}
 	
 	@GetMapping("/admin/setChefToRecipe/{idChef}/{idRecipe}")
@@ -144,7 +144,7 @@ public class RecipeController {
 		this.recipeService.save(recipe);
 		model.addAttribute("recipe", recipe);
 		model.addAttribute("ingredients", this.ingredientService.findAvailableIngredients(recipe.getRecipeIngredients()));
-		return "updateIngredients.html";
+		return "admin/updateIngredients.html";
 	}
 	
 	@GetMapping("/admin/removeIngredientFromRecipe/{idIng}/{idRecipe}")
@@ -154,7 +154,7 @@ public class RecipeController {
 		this.recipeService.save(recipe);
 		model.addAttribute("recipe", recipe);
 		model.addAttribute("ingredients", this.ingredientService.findAvailableIngredients(recipe.getRecipeIngredients()));
-		return "updateIngredients.html";
+		return "admin/updateIngredients.html";
 	}
 	
 

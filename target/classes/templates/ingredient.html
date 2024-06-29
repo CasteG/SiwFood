@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Chef</title>
+    <title>Ingredient</title>
     <link rel="stylesheet" href="/stile.css?version=2" />
 </head>
 
@@ -9,9 +9,9 @@
     <div>
     <div><a href="/">Home</a></div>
     </div>
-    <div th:if="${chef}">
-        <h1 th:text="${chef} + ' (' + ${chef.dateOfBirth} + ')' "></h1>
+    <div th:if="${ingredient}">
+        <h1 th:text="${ingredient.name} "></h1>
     </div>
-    <div th:unless="${chef}">Non esiste</div>
+    <div th:unless="${ingredient}">Non esiste</div>
 </body>
 </html>

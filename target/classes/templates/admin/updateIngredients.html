@@ -6,7 +6,7 @@
 	</head>
 	
 	<body>
-		<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+    <div><a href="/">Home</a></div>
 		<h1>Modifica gli ingredienti della ricetta</h1>
 		<p>
 			<h3>Ingredienti aggiunti</h3>
@@ -14,7 +14,7 @@
 			<ul>
 			<li th:each="recipeIngredient : ${recipe.recipeIngredients}">
 			<a th:text="${recipeIngredient.ingredient.name}">Besciamella</a>
-			<a th:href="@{'/removeIngredientFromRecipe' + '/' + ${recipeIngredient.ingredient.id} + '/' + ${recipe.id}}">Cancella</a>
+			<a th:href="@{'/admin/removeIngredientFromRecipe' + '/' + ${recipeIngredient.ingredient.id} + '/' + ${recipe.id}}">Cancella</a>
 			</li>
 			</ul>
 		</p>
@@ -24,7 +24,7 @@
 			<ul>
 			<li th:each="ingredient : ${ingredients}">
 	        <a th:text="${ingredient}">Besciamella</a>
-	        <a th:href="@{'/setIngredientToRecipe' + '/' + ${ingredient.id} + '/' + ${recipe.id}}">Aggiungi</a>
+	        <a th:href="@{'/admin/setIngredientToRecipe' + '/' + ${ingredient.id} + '/' + ${recipe.id}}">Aggiungi</a>
 	        </li>
 			</ul>
 		</p>

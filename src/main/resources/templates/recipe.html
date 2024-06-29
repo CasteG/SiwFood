@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ricetta</title>
+    <link rel="stylesheet" href="/stile.css?version=2" />
+</head>
+<body>
+<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+<div th:if="${recipe}">
+    <h1 th:text="${recipe.name}"></h1>
+    <div>
+       <img th:src="@{'/image/' + ${recipe.image.id}}">
+    </div>
+    <div>Cuoco: <span th:text="${recipe.chef}"></span></div>
+    <div>Descrizione: <span th:text="${recipe.description}"></span></div>
+    <!-- Itera sugli ingredienti della recipe -->
+    <h2>Ingredienti:</h2>
+    <div th:if="${recipe.recipeIngredients.isEmpty()}">Nessun ingrediente inserito</div>
+    <div th:if="${!recipe.recipeIngredients.isEmpty()}">
+        <ul>
+            <li th:each="recIngredient : ${recipe.recipeIngredients}">
+                <span th:text="${recIngredient.ingredient}"></span>
+                <span th:if="${recIngredient.quantity != 0}" th:text="' (' + ${recIngredient.quantity} + ')'"></span>
+            </li>
+        </ul>
+    </div>
+</div>
+<div th:unless="${recipe}">Non esiste</div>
+</body>
+</html>

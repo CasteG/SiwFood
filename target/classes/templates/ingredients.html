@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ingredients</title>
+    <link rel="stylesheet" href="/stile.css?version=2" />
+  </head>
+
+  <body>
+    <div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+    <h1>Ingredienti</h1>
+    <div th:if="${ingredients.isEmpty()}">Non ci sono ingredienti nel sistema</div>
+    <ul>
+      <li th:each="ingredient : ${ingredients}">
+        <span th:text="${ingredient}">Besciamella</span>
+      </li>
+    </ul>
+  </body>
+</html>

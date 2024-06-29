@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Chefs</title>
+    <link rel="stylesheet" href="/stile.css?version=2" />
+  </head>
+
+  <body>
+    <div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+    <h1>Cuochi</h1>
+    <div th:if="${chefs.isEmpty()}">Non ci sono cuochi nel sistema</div>
+    <ul>
+      <li th:each="chef : ${chefs}">
+        <a th:href="@{'/chef' + '/' + ${chef.id}}"
+           th:text="${chef}">Bruno Barbieri </a>
+      </li>
+    </ul>
+  </body>
+
+</html>

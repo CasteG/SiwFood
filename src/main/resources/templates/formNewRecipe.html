@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>New Recipe</title>
+    <link rel="stylesheet" href="/stile.css?version=3">
+</head>
+
+<body>
+<div><a href="/"><img src="/images/logo-siw.png" width="50%"></a></div>
+<h1>Aggiungi una ricetta</h1>
+<form th:action="@{/recipe}" method="POST" th:object="${recipe}" enctype="multipart/form-data">
+    <div th:if="${#fields.hasGlobalErrors()}">
+        <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+    </div>
+    <div>
+        Nome: <input type="text" th:field="${recipe.name}">
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    </div>
+
+    <div>
+        Cuoco:
+        <span th:if="${chefs.isEmpty()}">Non ci sono chef nel sistema</span>
+        <span th:if="${!chefs.isEmpty()}">
+            <select th:field="${recipe.chef}">
+                <option th:each="chef : ${chefs}" th:value="${chef.id}" th:text="${chef}">Seleziona un cuoco</option>
+            </select>
+        </span>
+    </div>
+
+    <div>
+        Descrizione: <input type="text" th:field="${recipe.description}">
+    </div>
+    <span><input required type="file" name="file"></span>
+    <span><button type="submit">Conferma</button></span>
+</form>
+
+</body>
+</html>

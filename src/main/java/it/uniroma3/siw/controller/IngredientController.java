@@ -1,0 +1,52 @@
+package it.uniroma3.siw.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import it.uniroma3.siw.model.Ingredient;
+import it.uniroma3.siw.service.IngredientService;
+import it.uniroma3.siw.validator.IngredientValidator;
+
+@Controller
+public class IngredientController {
+
+	@Autowired
+	private IngredientService ingredientService;
+	
+	@Autowired 
+	private IngredientValidator ingredientValidator;
+	
+	@GetMapping("/ingredient")
+	public String showIngredients(Model model) {
+		model.addAttribute("ingredients", ingredientService.findAll());
+		return "ingredients.html";
+	}
+	
+	@GetMapping("/formNewIngredient")
+	public String formNewIngredient(Model model) {
+		model.addAttribute("ingredient", new Ingredient());
+		return "formNewIngredient";
+	}
+	
+	@PostMapping("/ingredient")
+	public String newIngredient(@ModelAttribute("ingredient") Ingredient ingredient,
+			BindingResult bindingResult, Model model) {
+		this.ingredientValidator.validate(ingredient, bindingResult);
+		if(!bindingResult.hasErrors()) {
+			this.ingredientService.save(ingredient);
+			return "redirect:/ingredient";
+		}
+		else {
+			model.addAttribute("ingredients", this.ingredientService.findAll());
+			return "formNewIngredient.html";
+		}
+	}
+	
+}
+
+

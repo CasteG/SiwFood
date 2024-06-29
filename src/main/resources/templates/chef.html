@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chef</title>
+    <link rel="stylesheet" href="/stile.css?version=2" />
+</head>
+
+<body>
+    <div>
+        <a href="/"><img src="/images/logo-siw.png" width="50%"/></a>
+    </div>
+    <div th:if="${chef}">
+        <h1 th:text="${chef} + ' (' + ${chef.dateOfBirth} + ')' "></h1>
+    </div>
+    <div th:unless="${chef}">Non esiste</div>
+</body>
+</html>

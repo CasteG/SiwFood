@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	
+	<head>
+		<title>Manage Recipes</title>
+		<link rel="stylesheet" href="/stile.css?version=2" />
+	</head>
+	
+	<body>
+		<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+		<h1>Gestisci ricette</h1>
+		<div th:if="${recipes.isEmpty()}">Non ci sono ricette nel sistema</div>
+		<ul>
+        <li th:each="recipe : ${recipes}">
+        	<a th:text="${recipe.name}"></a>
+			<a th:href="@{'/formUpdateRecipe/' + ${recipe.id}}">(Aggiorna)</a>
+        </li>
+        </ul>
+	    </body>
+</html>

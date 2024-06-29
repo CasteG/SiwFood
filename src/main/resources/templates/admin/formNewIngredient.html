@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <title>New Ingredient</title>
+    <link rel="stylesheet" href="/stile.css?version=3" />
+  </head>
+  <body>
+    <div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+    <h1>Aggiungi un ingrediente</h1>
+    <form th:action="@{/ingredient}" method="POST" th:object="${ingredient}">
+		 <!-- Sezione per la validazione -->
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+        </div>
+	<div>
+        Nome: <span><input type="text" th:field="${ingredient.name}"/></span>
+        <!-- Sezione per la validazione -->
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+      </div>
+      <div>
+        <span><button type="submit">Conferma</button></span>
+      </div>
+    </form>
+  </body>
+</html>

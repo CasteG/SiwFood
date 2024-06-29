@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Recipes</title>
+    <link rel="stylesheet" href="/stile.css?version=2" />
+  </head>
+
+  <body>
+    <div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+    <h1>Ricette</h1>
+    <div th:if="${recipes.isEmpty()}">Nessuna ricetta trovata nel sistema</div>
+    <ul>
+      <li th:each="recipe : ${recipes}">
+        <a th:href="@{'/recipe' + '/' + ${recipe.id}}"
+           th:text="${recipe.name}">Lasagna</a>
+        <span th:text="' (' + ${recipe.chef} + ')'">(Carlo Cracco)</span>
+      </li>
+    </ul>
+  </body>
+</html>

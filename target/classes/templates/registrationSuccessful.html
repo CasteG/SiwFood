@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Registrazione completata</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+		<!--<div th:if="${#request.userPrincipal}">
+			<span th:text="${#request.userPrincipal.principal.username}"></span>
+			<a href="/logout">Logout</a>
+		</div>
+		<div th:unless="${#request.userPrincipal}">
+			<a href="/login">Login</a>
+		</div>-->
+	</header>
+
+	<div>
+		<a href="/"><img src="/images/logo-siw.png" width="50%"/></a>
+	</div>
+	<h1>Congratulazioni ti sei registrato!</h1>
+	<div>
+		<span>Nome: </span>
+		<span th:text="${user.firstName}"></span>
+	</div>
+	<div>
+		<span>Cognome: </span>
+		<span th:text="${user.lastName}"></span>
+	</div>
+</body>
+</html>

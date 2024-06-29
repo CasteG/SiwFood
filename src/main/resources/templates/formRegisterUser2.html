@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SiwFood - Register</title>
+		<link rel="stylesheet" href="/stile.css?version=2" />
+	</head>
+	
+	<body>
+		
+		<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+		<h1>Registrazione nuovo utente</h1>
+		<form th:action="@{/register}" method="POST">
+		<!-- Sezione per la validazione -->
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+        </div>
+			
+		<div>
+            Nome: <span><input type="text" th:field="${user.firstName}"/></span>
+             <!-- Sezione per la validazione -->
+            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+        </div>
+        		
+		<div>
+            Cognome: <span><input type="text" th:field="${user.lastName}"/></span>
+             <!-- Sezione per la validazione -->
+            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+        </div>
+        
+        <div>
+            Username: <span><input type="text" th:field="${credentials.username}"/></span>
+             <!-- Sezione per la validazione -->
+            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+        </div>
+        
+        <div>
+            Password: <span><input type="text" th:field="${credentials.password}"/></span>
+         <!-- Sezione per la validazione -->
+            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+        </div>
+			
+		<div>
+			<span><button type="submit">Registrati</button></span>
+		</div>
+			
+		</form>
+		<br>
+		<div>
+			Sei già registrato? <a th:href="@{/login}"> Fai l'accesso qui</a>
+		</div>
+	</body>
+</html>

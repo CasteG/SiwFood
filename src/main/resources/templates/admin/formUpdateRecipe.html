@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Update Recipe</title>
+		<link rel="stylesheet" href="/css/stile.css" />
+	</head>
+	
+	<body>
+		<div><a href="/"><img src="/images/logo-siw.png" width="50%" /></a></div>
+		<h1>Aggiorna ricetta</h1>
+		<a th:text="'Nome: ' + ${recipe.name} + ' (' + ${recipe.chef} + ')'">Lasagna (Bruno Barbieri)</a>
+		<p>
+			<h3>Modifiche:</h3>
+			<a th:href="@{'/updateChef/' + ${recipe.id}}">Modifica cuoco</a>
+			<br>
+			<a th:href="@{'/updateIngredients/' + ${recipe.id}}">Modifica ingredienti</a>
+		</p>
+	</body>
+</html>

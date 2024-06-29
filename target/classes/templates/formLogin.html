@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Login</title>
+		<link rel="stylesheet" href="/stile.css?version=2" />
+	</head>
+	
+	<body>
+		<header>
+			<div th:if="${userDetails}">
+				<span th:text="${userDetails.username}"></span>
+				<a href="/logout">Logout</a>
+			</div>
+		</header>
+		
+		<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+		<h1>Login</h1>
+		<form th:action="@{/login}" method="POST">
+			<div>
+				<span>Username:</span>
+				<span><input name="username" type="text" required /></span>
+			</div>
+			<div>
+				<span>Password:</span>
+				<span><input name="password" type="password" required /></span>
+			</div>
+			<div th:if="${errorMessage != null}">
+				<span text="${errorMessage}"></span>
+			</div>
+			<div>
+				<span><button type="submit">Login</button></span>
+			</div>
+		</form>
+		<br>
+		<div>
+			Non hai un account? <a th:href="@{'/register'}">Registrati qui</a>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>New Recipe</title>
+    <link rel="stylesheet" href="/stile.css?version=3">
+    <script>
+        function addIngredientField() {
+            const ingredientsDiv = document.getElementById("ingredients");
+            const newIngredientDiv = document.createElement("div");
+            newIngredientDiv.classList.add("ingredient");
+
+            const index = ingredientsDiv.children.length;
+
+            newIngredientDiv.innerHTML = `
+                <input required type="text" name="recipe.recipeIngredients[${index}].ingredient.name" placeholder="Nome ingrediente">
+                <input required type="text" name="recipe.recipeIngredients[${index}].quantity" placeholder="Quantità">
+            `;
+
+            ingredientsDiv.appendChild(newIngredientDiv);
+        }
+    </script>
+</head>
+
+<body>
+<div><a href="/"><img src="/images/logo-siw.png" alt="Logo SIW" style="width:50%;"></a></div>
+<h1>Aggiungi una ricetta</h1>
+<form th:action="@{/recipe}" method="POST" th:object="${recipe}">
+    <div th:if="${#fields.hasGlobalErrors()}">
+        <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+    </div>
+    <div>
+		Nome: <span><input type="text" th:field="${recipe.name}" /></span>
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    </div>
+    <div>
+        Cuoco:
+        <div th:if="${chefs.isEmpty()}">Non ci sono chef nel sistema</div>
+        <select th:field="${recipe.chef}">
+            <option th:each="chef : ${chefs}" th:value="${chef.id}" th:text="${chef}">Seleziona un cuoco</option>
+        </select>
+    </div>
+    <div>
+        Descrizione: <input type="text" th:field="${recipe.description}">
+    </div>
+    <div>
+        <h3>Ingredienti</h3>
+        <div id="ingredients">
+            <!-- Questi campi saranno aggiunti dinamicamente -->
+        </div>
+        <button type="button" onclick="addIngredientField()">Aggiungi ingrediente</button>
+    </div>
+    <div>
+        <button type="submit">Conferma</button>
+    </div>
+</form>
+
+</body>
+</html>

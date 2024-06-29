@@ -35,7 +35,7 @@ public class ChefController {
 		return "chef.html";
 	}
 	
-	@GetMapping("/formNewChef")
+	@GetMapping("/admin/formNewChef")
 	public String formNewChef(Model model) {
 		model.addAttribute("chef", new Chef());
 		return "formNewChef.html";

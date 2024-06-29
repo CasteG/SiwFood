@@ -44,7 +44,7 @@ public class RecipeController {
 	@Autowired
 	private ImageRepository imageRepository;
 	
-	@GetMapping("/formNewRecipe")
+	@GetMapping("/admin/formNewRecipe")
 	public String formNewRecipe(Model model) {
 		model.addAttribute("recipe", new Recipe());
 		model.addAttribute("chefs", this.chefService.findAll());
@@ -96,31 +96,31 @@ public class RecipeController {
 		return "recipes.html";
 	}
 	
-	@GetMapping("/indexRecipe")
+	@GetMapping("/admin/indexRecipe")
 	public String indexRecipe(Model model) {
 		return "indexRecipe.html";
 	}
 	
-	@GetMapping("/manageRecipes")
+	@GetMapping("/admin/manageRecipes")
 	public String manageRecipes(Model model) {
 		model.addAttribute("recipes", this.recipeService.findAll());
 		return "manageRecipes.html";
 	}
 	
-	@GetMapping("/formUpdateRecipe/{id}")
+	@GetMapping("/admin/formUpdateRecipe/{id}")
 	public String updateRecipe(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("recipe", this.recipeService.findById(id));
 		return "formUpdateRecipe.html";
 	}
 
-	@GetMapping("/updateChef/{idRecipe}")
+	@GetMapping("/admin/updateChef/{idRecipe}")
 	public String updateChef(@PathVariable("idRecipe") Long id, Model model) {
 		model.addAttribute("recipe",this.recipeService.findById(id));
 		model.addAttribute("chefs", this.chefService.findAll());
 		return "updateChef.html";
 	}
 
-	@GetMapping("/updateIngredients/{idRecipe}")
+	@GetMapping("/admin/updateIngredients/{idRecipe}")
 	public String updateIngredients(Model model, @PathVariable("idRecipe") Long id) {
 		Recipe recipe = this.recipeService.findById(id);
 		model.addAttribute("recipe", recipe);
@@ -128,7 +128,7 @@ public class RecipeController {
 		return "updateIngredients.html";
 	}
 	
-	@GetMapping("/setChefToRecipe/{idChef}/{idRecipe}")
+	@GetMapping("/admin/setChefToRecipe/{idChef}/{idRecipe}")
 	public String setChefToRecipe(Model model, @PathVariable("idChef") Long idChef, @PathVariable("idRecipe") Long idRecipe) {
 		Recipe recipe = this.recipeService.findById(idRecipe);
 		recipe.setChef(this.chefService.findById(idChef));
@@ -137,7 +137,7 @@ public class RecipeController {
 		return "recipe.html";
 	}
 	
-	@GetMapping("/setIngredientToRecipe/{idIngredient}/{idRecipe}")
+	@GetMapping("/admin/setIngredientToRecipe/{idIngredient}/{idRecipe}")
 	public String setIngredientToRecipe(Model model, @PathVariable("idIngredient") Long idIng, @PathVariable("idRecipe") Long idRecipe) {
 		Recipe recipe = this.recipeService.findById(idRecipe);		
 		this.recipeIngredientService.addIngredient(recipe, this.ingredientService.findById(idIng));
@@ -147,7 +147,7 @@ public class RecipeController {
 		return "updateIngredients.html";
 	}
 	
-	@GetMapping("/removeIngredientFromRecipe/{idIng}/{idRecipe}")
+	@GetMapping("/admin/removeIngredientFromRecipe/{idIng}/{idRecipe}")
 	public String removeIngredientFromRecipe(Model model,@PathVariable("idIng") Long idIng, @PathVariable("idRecipe") Long idRecipe) {
 		Recipe recipe = this.recipeService.findById(idRecipe);
 		this.recipeIngredientService.removeIngredient(recipe.getRecipeIngredients(), this.ingredientService.findById(idIng));

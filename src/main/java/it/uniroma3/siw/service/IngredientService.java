@@ -53,6 +53,10 @@ public class IngredientService {
         return availableIngredients;
 	}
 
+	public void remove(Ingredient ingredient) {
+		this.ingredientRepository.delete(ingredient);
+	}
+
 		
 
 }

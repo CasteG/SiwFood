@@ -34,4 +34,8 @@ public class RecipeService {
 	public Iterable<Recipe> findByName(String name) {
 		return this.recipeRepository.findByName(name);		
 	}
+
+	public void remove(Recipe recipe) {
+		this.recipeRepository.delete(recipe);
+	}
 }

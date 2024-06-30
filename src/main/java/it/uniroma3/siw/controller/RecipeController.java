@@ -112,6 +112,12 @@ public class RecipeController {
 		model.addAttribute("recipe", this.recipeService.findById(id));
 		return "admin/formUpdateRecipe.html";
 	}
+	
+	@GetMapping("/admin/removeRecipe/{id}")
+	public String removeRecipe(@PathVariable("id") Long id, Model model) {
+		this.recipeService.remove(this.recipeService.findById(id));
+		return "admin/successfulRemoval.html";
+	}
 
 	@GetMapping("/admin/updateChef/{idRecipe}")
 	public String updateChef(@PathVariable("idRecipe") Long id, Model model) {

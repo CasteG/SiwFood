@@ -24,4 +24,8 @@ public class ChefService {
 		this.chefRepository.save(chef);
 	}
 
+	public void remove(Chef chef) {
+		this.chefRepository.delete(chef);
+	}
+
 }

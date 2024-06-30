@@ -41,6 +41,18 @@ public class ChefController {
 		return "admin/formNewChef.html";
 	}
 	
+	@GetMapping("/admin/manageChefs")
+	public String manageChefs(Model model) {
+		model.addAttribute("chefs", this.chefService.findAll());
+		return "admin/manageChefs.html";
+	}
+	
+	@GetMapping("/admin/removeChef/{id}")
+	public String removeChef(@PathVariable("id") Long id, Model model) {
+		this.chefService.remove(this.chefService.findById(id));
+		return "admin/successfulRemoval.html";
+	}
+	
 	@PostMapping("/chef")
 	public String newChef(@Valid @ModelAttribute("chef") Chef chef, 
 			BindingResult bindingResult, Model model) {

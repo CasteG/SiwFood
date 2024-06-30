@@ -14,6 +14,7 @@
         <li th:each="recipe : ${recipes}">
         	<a th:text="${recipe.name}"></a>
 			<a th:href="@{'/admin/formUpdateRecipe/' + ${recipe.id}}">(Aggiorna)</a>
+			<a th:href="@{'/admin/removeRecipe/' + ${recipe.id}}">(Rimuovi)</a>
         </li>
         </ul>
 	    </body>

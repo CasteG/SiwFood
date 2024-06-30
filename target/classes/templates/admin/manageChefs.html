@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	
+	<head>
+		<title>Manage Chefs</title>
+		<link rel="stylesheet" href="/stile.css?version=2" />
+	</head>
+	
+	<body>
+    <div><a href="/">Home</a></div>
+		<h1>Gestisci chef</h1>
+		<div th:if="${chefs.isEmpty()}">Non ci sono chef nel sistema</div>
+		<ul>
+        <li th:each="chef : ${chefs}">
+        	<a th:text="${chef}"></a>
+			<a th:href="@{'/admin/removeChef/' + ${chef.id}}">(Rimuovi)</a>
+        </li>
+        </ul>
+	    </body>
+</html>

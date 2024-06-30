@@ -35,6 +35,18 @@ public class IngredientController {
 		return "ingredient.html";
 	}
 	
+	@GetMapping("/admin/manageIngredients")
+	public String manageIngredients(Model model) {
+		model.addAttribute("ingredients", this.ingredientService.findAll());
+		return "admin/manageIngredients.html";
+	}
+	
+	@GetMapping("/admin/removeIngredient/{id}")
+	public String removeIngredient(@PathVariable("id") Long id, Model model) {
+		this.ingredientService.remove(this.ingredientService.findById(id));
+		return "admin/successfulRemoval.html";
+	}
+	
 	@GetMapping("/admin/formNewIngredient")
 	public String formNewIngredient(Model model) {
 		model.addAttribute("ingredient", new Ingredient());

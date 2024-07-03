@@ -3,15 +3,46 @@
 <head>
     <title>Chef</title>
     <link rel="stylesheet" href="/stile.css?version=2" />
+    <div th:replace="~{fragments :: Stylesheet}"></div>
+    <style>
+        body {
+            background-color: #8FB7BB;
+        }
+        .chef-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .chef-image {
+            border: 5px solid #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .non-existent {
+            color: #dc3545;
+        }
+    </style>
 </head>
 
 <body>
-    <div>
-    <div><a href="/">Home</a></div>
+    <div th:replace="~{fragments :: Navbar}"></div>
+    
+    <div th:if="${chef}" class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center chef-container">
+                <h1 class="text-uppercase fw-bolder" th:text="${chef} + ' (' + ${chef.dateOfBirth} + ')'"></h1>
+                <div class="mt-4">
+                    <img th:src="@{'/image/' + ${chef.image.id}}" class="img-fluid rounded-circle chef-image" style="width: 200px; height: 200px; object-fit: cover;">
+                </div>
+            </div>
+        </div>
     </div>
-    <div th:if="${chef}">
-        <h1 th:text="${chef} + ' (' + ${chef.dateOfBirth} + ')' "></h1>
+
+    <div th:unless="${chef}" class="d-flex justify-content-center align-items-center" style="height: 50vh;">
+        <h1 class="text-center text-danger fw-bolder non-existent">Non esiste</h1>
     </div>
-    <div th:unless="${chef}">Non esiste</div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

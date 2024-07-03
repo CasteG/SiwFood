@@ -3,6 +3,9 @@ package it.uniroma3.siw.controller;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,10 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Image;
 import it.uniroma3.siw.model.Recipe;
 import it.uniroma3.siw.repository.ImageRepository;
 import it.uniroma3.siw.service.ChefService;
+import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.IngredientService;
 import it.uniroma3.siw.service.RecipeIngredientService;
 import it.uniroma3.siw.service.RecipeService;
@@ -43,6 +48,9 @@ public class RecipeController {
 	
 	@Autowired
 	private ImageRepository imageRepository;
+
+	@Autowired
+	private CredentialsService credentialsService;
 	
 	@GetMapping("/admin/formNewRecipe")
 	public String formNewRecipe(Model model) {
@@ -103,8 +111,23 @@ public class RecipeController {
 	
 	@GetMapping("/admin/manageRecipes")
 	public String manageRecipes(Model model) {
-		model.addAttribute("recipes", this.recipeService.findAll());
-		return "admin/manageRecipes.html";
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        // Ottieni il Principal e fai il cast a UserDetails
+        Object principal = authentication.getPrincipal();
+        // se può accedere a questa risorsa vuol dire che è per forza utente
+        UserDetails userDetails = (UserDetails) principal;
+        Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
+        // se è admin può modificare tutte le ricette
+        if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
+    		model.addAttribute("recipes", this.recipeService.findAll());
+    		return "admin/manageRecipes.html";
+        }
+        else {	//è user default, puà modificare solo le sue ricette
+        	Iterable<Recipe> userRecipes= this.recipeService.findByChef(credentials.getUser().getFirstName(),credentials.getUser().getLastName());
+        	model.addAttribute("recipes", userRecipes);
+        	return "admin/manageRecipes.html";
+        }
 	}
 	
 	@GetMapping("/admin/formUpdateRecipe/{id}")

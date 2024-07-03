@@ -11,4 +11,6 @@ public interface RecipeRepository extends CrudRepository<Recipe,Long> {
 
 	public Iterable<Recipe> findByName(String name);
 
+	public Iterable<Recipe> findByChefFirstNameAndChefLastName(String firstName, String lastName);
+
 }

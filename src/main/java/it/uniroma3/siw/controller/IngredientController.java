@@ -61,7 +61,7 @@ public class IngredientController {
 		if(!bindingResult.hasErrors()) {
 			this.ingredientService.save(ingredient);
 			model.addAttribute("ingredient", ingredient);
-			return "redirect:ingredient/"+ingredient.getId();
+			return "redirect:ingredient";
 		}
 		else {
 			model.addAttribute("ingredient", ingredient);

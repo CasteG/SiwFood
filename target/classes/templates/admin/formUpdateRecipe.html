@@ -1,19 +1,36 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Update Recipe</title>
-		<link rel="stylesheet" href="/css/stile.css" />
-	</head>
+<head>
+    <title>Update Recipe</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+    <div th:replace="~{fragments :: Stylesheet}"></div>
+    
+</head>
+
+<body>
+    <div th:replace="~{fragments :: Navbar}"></div>
+    
+    <div class="text-center">
+        <h1 class="text-uppercase fw-bolder pt-3">Aggiorna ricetta</h1>
+        
+        <div class="recipe-details">
+			<div>
+       			<img th:src="@{'/image/' + ${recipe.image.id}}">
+    		</div>
+            <h2 th:text="${recipe.name}" class="text-center text-uppercase pt-3"></h2>
+            <p th:text="'Chef: ' + ${recipe.chef}"></p>
+        </div>
+        <!-- BOTTONI MODIFICHE -->
+        <h3 class="mt-4">Modifiche:</h3>
+        <p>
+            <a th:href="@{'/admin/updateChef/' + ${recipe.id}}" class="btn btn-success mb-2">Modifica cuoco</a>
+            <br>
+            <a th:href="@{'/admin/updateIngredients/' + ${recipe.id}}" class="btn btn-success">Modifica ingredienti</a>
+        </p>
+    </div>
+    
+	    <!-- Bootstrap Bundle with Popper -->
+	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	
-	<body>
-    <div><a href="/">Home</a></div>
-		<h1>Aggiorna ricetta</h1>
-		<a th:text="'Nome: ' + ${recipe.name} + ' (' + ${recipe.chef} + ')'">Lasagna (Bruno Barbieri)</a>
-		<p>
-			<h3>Modifiche:</h3>
-			<a th:href="@{'/admin/updateChef/' + ${recipe.id}}">Modifica cuoco</a>
-			<br>
-			<a th:href="@{'/admin/updateIngredients/' + ${recipe.id}}">Modifica ingredienti</a>
-		</p>
 	</body>
 </html>

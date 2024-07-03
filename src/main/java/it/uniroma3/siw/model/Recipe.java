@@ -106,7 +106,11 @@ public class Recipe {
 		return Objects.equals(recipeIngredients, other.recipeIngredients) && Objects.equals(name, other.name)
 				&& Objects.equals(chef, other.chef);
 	}
-	
+
+	@Override
+	public String toString() {
+		return name + " (" + chef + ")";
+	}
 
 
 	

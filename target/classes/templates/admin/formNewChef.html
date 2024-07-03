@@ -1,37 +1,103 @@
 <!DOCTYPE html>
-<html lang="it">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>New Chef</title>
-    <link rel="stylesheet" href="/stile.css?version=3" />
+    <title>New Chef</title>    
+    <div th:replace="~{fragments :: Stylesheet}"></div>
+    
+     <style>
+        body {
+            background-color: #8FB7BB; /* Sfondo celeste */
+            padding-top: 20px; /* Padding in alto per separare dal menu */
+        }
+
+        .container {
+            background-color: #ffffff; /* Sfondo bianco per il contenitore */
+            padding: 20px; /* Spaziatura interna */
+            border-radius: 10px; /* Bordo arrotondato */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+        }
+
+        .form_container {
+            background-color: #f8f9fa; /* Sfondo grigio chiaro per il form */
+            padding: 20px; /* Spaziatura interna */
+            border-radius: 5px; /* Bordo arrotondato */
+        }
+
+        /* Stile per i messaggi di errore */
+        .text-danger {
+            font-weight: bold; /* Testo in grassetto */
+        }
+
+        /* Stile per i pulsanti */
+        .btn-info {
+            background-color: #8FB7BB; /* Colore di sfondo azzurro */
+            border-color: #17a2b8; /* Colore del bordo azzurro */
+        }
+
+        .btn-info:hover {
+            background-color: #138496; /* Colore di sfondo azzurro più scuro al passaggio del mouse */
+            border-color: #117a8b; /* Colore del bordo azzurro più scuro al passaggio del mouse */
+        }
+    </style>
+   
 </head>
 <body>
-    <div><a href="/">Home</a></div>
-    <h1>Aggiungi un cuoco</h1>
-    <form th:action="@{/chef}" method="POST" th:object="${chef}">
-        <!-- Sezione per la validazione -->
-        <div th:if="${#fields.hasGlobalErrors()}">
-            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+    <div th:replace="~{fragments :: Navbar}"></div>
+    
+    <section class="generic_section">
+        <div class="container">
+            <h1 class="text-center text-uppercase fw-bolder pt-3">Aggiungi un cuoco</h1>        
+            <div class="row justify-content-center">
+                <div class="col-md-6 mb-5">
+					
+                    <!-- Form per l'aggiunta di uno chef -->
+                    <div class="container my-3">
+                        <div class="form_container">
+                            <form th:action="@{/chef}" method="POST" th:object="${chef}" enctype="multipart/form-data">    
+                                <!-- Sezione per la validazione -->
+                                <div th:if="${#fields.hasGlobalErrors()}">
+                                    <p th:each="err : ${#fields.globalErrors()}" th:text="${err}" class="text-danger">...</p>
+                                </div>
+                                <!-- NOME -->
+                                <div class="mb-2">
+                                    <label for="firstName" class="form-label">Nome:</label>
+                                    <input type="text" th:field="*{firstName}" class="form-control" id="firstName" placeholder="Carlo" required>
+                                    <!-- Sezione per la validazione -->
+                                    <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="text-danger"></span>
+                                </div>
+                                <!-- COGNOME -->
+                                <div class="mb-2">
+                                    <label for="lastName" class="form-label">Cognome:</label>
+                                    <input type="text" th:field="*{lastName}" class="form-control" id="lastName" placeholder="Cracco" required>
+                                    <!-- Sezione per la validazione -->
+                                    <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="text-danger"></span>
+                                </div>
+                                <!-- DATA DI NASCITA -->
+                                <div class="mb-2">
+                                    <label for="dateOfBirth" class="form-label">Data di Nascita:</label>
+                                    <input type="date" th:field="*{dateOfBirth}" class="form-control" id="dateOfBirth" required>
+                                    <!-- Sezione per la validazione -->
+                                    <span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}" class="text-danger"></span>
+                                </div>
+                                <!-- IMMAGINE -->
+                                <div class="mb-2">
+                                    <label for="file" class="form-label">Carica immagine:</label>
+                                    <input type="file" name="file" class="form-control" id="file" required>
+                                </div>
+                                <!-- BOTTONE CONFERMA -->
+                                <div>
+                                    <button type="submit" class="btn btn-info me-2 mt-3">Conferma</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <div>
-            Nome: <span><input type="text" th:field="${chef.firstName}"/></span>
-            <!-- Sezione per la validazione -->
-            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
-        </div>
-        <div>
-            Cognome: <span><input type="text" th:field="${chef.lastName}"/></span>
-            <!-- Sezione per la validazione -->
-            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
-        </div>
-        <div>
-            Data di nascita: <span><input type="text" th:field="${chef.dateOfBirth}"/></span>
-            <!-- Sezione per la validazione -->
-            <span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
-        </div>
-        <div>
-            <span><button type="submit">Conferma</button></span>
-        </div>
-    </form>
+    </section>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

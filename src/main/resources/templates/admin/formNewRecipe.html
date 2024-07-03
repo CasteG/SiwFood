@@ -1,39 +1,104 @@
 <!DOCTYPE html>
-<html lang="it">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>New Recipe</title>
-    <link rel="stylesheet" href="/stile.css?version=3">
+    <title>New Recipe</title>    
+    <div th:replace="~{fragments :: Stylesheet}"></div>
+    
+    
+     <style>
+        body {
+            background-color: #8FB7BB; /* Sfondo celeste */
+            padding-top: 20px; /* Padding in alto per separare dal menu */
+        }
+
+        .container {
+            background-color: #ffffff; /* Sfondo bianco per il contenitore */
+            padding: 20px; /* Spaziatura interna */
+            border-radius: 10px; /* Bordo arrotondato */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+        }
+
+        .form_container {
+            background-color: #f8f9fa; /* Sfondo grigio chiaro per il form */
+            padding: 20px; /* Spaziatura interna */
+            border-radius: 5px; /* Bordo arrotondato */
+        }
+
+        /* Stile per i messaggi di errore */
+        .text-danger {
+            font-weight: bold; /* Testo in grassetto */
+        }
+
+        /* Stile per i pulsanti */
+        .btn-info {
+            background-color: #8FB7BB; /* Colore di sfondo azzurro */
+            border-color: #17a2b8; /* Colore del bordo azzurro */
+        }
+
+        .btn-info:hover {
+            background-color: #138496; /* Colore di sfondo azzurro più scuro al passaggio del mouse */
+            border-color: #117a8b; /* Colore del bordo azzurro più scuro al passaggio del mouse */
+        }
+    </style>
+   
+
 </head>
-
 <body>
-    <div><a href="/">Home</a></div>
-<h1>Aggiungi una ricetta</h1>
-<form th:action="@{/recipe}" method="POST" th:object="${recipe}" enctype="multipart/form-data">
-    <div th:if="${#fields.hasGlobalErrors()}">
-        <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
-    </div>
-    <div>
-        Nome: <input type="text" th:field="${recipe.name}">
-        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-    </div>
+    <div th:replace="~{fragments :: Navbar}"></div>
+    
+   <section class="generic_section">
+        <div class="container">
+            <h1 class="text-center text-uppercase fw-bolder pt-3">Aggiungi una ricetta</h1>        
+            <div class="row justify-content-center">
+                <div class="col-md-6 mb-5">
+                    <div class="container my-3">
+                        <div class="form_container">
+                            <!-- Form per aggiungere una nuova ricetta -->
+                            <form th:action="@{/recipe}" method="POST" th:object="${recipe}" enctype="multipart/form-data">
+                                <!-- Sezione per la validazione -->
+                                <div th:if="${#fields.hasGlobalErrors()}">
+                                    <p th:each="err : ${#fields.globalErrors()}" th:text="${err}" class="text-danger">...</p>
+                                </div>
+                                
+                                <div class="mb-2">
+                                    <label for="name" class="form-label">Nome:</label>
+                                    <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Risotto allo scoglio" required>
+                                    <!-- Sezione per la validazione -->
+                                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+                                </div>
+                                
+                                <div class="mb-2">
+                                    <label for="chef" class="form-label">Cuoco:</label>
+                                    <span th:if="${chefs.isEmpty()}">Non ci sono chef nel sistema</span>
+                                    <span th:if="${not chefs.isEmpty()}">
+                                        <select th:field="*{chef}" class="form-select">
+                                            <option th:each="chef : ${chefs}" th:value="${chef.id}" th:text="${chef}">Seleziona un cuoco</option>
+                                        </select>
+                                    </span>
+                                </div>
+                                
+                                <div class="mb-2">
+                                    <label for="description" class="form-label">Descrizione:</label>
+                                    <textarea th:field="*{description}" class="form-control" id="description" rows="3"></textarea>
+                                </div>
+                                
+                                <div class="mb-2">
+                                    <label for="file" class="form-label">Carica immagine:</label>
+                                    <input type="file" name="file" class="form-control" id="file" required>
+                                </div>
+                                <div>
+                                    <button type="submit" class="btn btn-info me-2 mt-3">Conferma</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div>
-        Cuoco:
-        <span th:if="${chefs.isEmpty()}">Non ci sono chef nel sistema</span>
-        <span th:if="${!chefs.isEmpty()}">
-            <select th:field="${recipe.chef}">
-                <option th:each="chef : ${chefs}" th:value="${chef.id}" th:text="${chef}">Seleziona un cuoco</option>
-            </select>
-        </span>
-    </div>
-
-    <div>
-        Descrizione: <input type="text" th:field="${recipe.description}">
-    </div>
-    <span><input required type="file" name="file"></span>
-    <span><button type="submit">Conferma</button></span>
-</form>
-
+    <!-- Script di Bootstrap Bundle con Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

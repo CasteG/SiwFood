@@ -38,4 +38,8 @@ public class RecipeService {
 	public void remove(Recipe recipe) {
 		this.recipeRepository.delete(recipe);
 	}
+
+	public Iterable<Recipe> findByChef(String firstName, String lastName) {
+		return this.recipeRepository.findByChefFirstNameAndChefLastName(firstName,lastName);
+	}
 }

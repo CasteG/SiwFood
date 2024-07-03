@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -29,6 +30,9 @@ public class Chef {
 	@NotBlank
 	private String lastName;
 
+	@OneToOne
+	private Image image;
+
 	@NotNull
 	@Past
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
@@ -41,6 +45,14 @@ public class Chef {
 
 	public Chef() {
 		this.designedRecipes = new HashSet<>();
+	}
+	
+	public Image getImage() {
+		return image;
+	} 
+	
+	public void setImage(Image image) {
+		this.image = image;
 	}
 
 	public String getFirstName() {

@@ -3,31 +3,40 @@
 	<head>
 		<title>Modifica ingredienti</title>
 		<link rel="stylesheet" href="/css/stile.css" />
-	</head>
+		<div th:replace="~{fragments :: Stylesheet}"></div>
 	
+	</head>
+
 	<body>
-    <div><a href="/">Home</a></div>
-		<h1>Modifica gli ingredienti della ricetta</h1>
-		<p>
-			<h3>Ingredienti aggiunti</h3>
-			<div th:if="${recipe.recipeIngredients.isEmpty()}">Ancora nessun ingrediente aggiunto</div>
-			<ul>
-			<li th:each="recipeIngredient : ${recipe.recipeIngredients}">
-			<a th:text="${recipeIngredient.ingredient.name}">Besciamella</a>
-			<a th:href="@{'/admin/removeIngredientFromRecipe' + '/' + ${recipeIngredient.ingredient.id} + '/' + ${recipe.id}}">Cancella</a>
-			</li>
-			</ul>
-		</p>
-		<p>
-			<h3>Ingredienti disponibili</h3>
-			<div th:if="${ingredients.isEmpty()}">Non ci sono ingredienti nel sistema</div>
-			<ul>
-			<li th:each="ingredient : ${ingredients}">
-	        <a th:text="${ingredient}">Besciamella</a>
-	        <a th:href="@{'/admin/setIngredientToRecipe' + '/' + ${ingredient.id} + '/' + ${recipe.id}}">Aggiungi</a>
-	        </li>
-			</ul>
-		</p>
+		<div th:replace="~{fragments :: Navbar}"></div>
 		
+		<div class="container mt-5">
+			<h1 class="text-center text-uppercase fw-bolder pt-3">Modifica gli ingredienti della ricetta</h1>
+
+			<div class="mt-4">
+				<h3 class="mb-3">Ingredienti aggiunti</h3>
+				<div th:if="${recipe.recipeIngredients.isEmpty()}" class="alert alert-warning">Ancora nessun ingrediente aggiunto</div>
+				<ul class="list-group">
+					<li class="list-group-item d-flex justify-content-between align-items-center" th:each="recipeIngredient : ${recipe.recipeIngredients}">
+						<a th:text="${recipeIngredient.ingredient.name}" class="fw-bold text-decoration-none"></a>
+						<a th:href="@{'/admin/removeIngredientFromRecipe' + '/' + ${recipeIngredient.ingredient.id} + '/' + ${recipe.id}}" class="btn btn-danger btn-sm">Cancella</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="mt-5">
+				<h3 class="mb-3">Ingredienti disponibili</h3>
+				<div th:if="${ingredients.isEmpty()}" class="alert alert-info">Non ci sono ingredienti nel sistema</div>
+				<ul class="list-group">
+					<li class="list-group-item d-flex justify-content-between align-items-center" th:each="ingredient : ${ingredients}">
+						<a th:text="${ingredient}" class="fw-bold text-decoration-none"></a>
+						<a th:href="@{'/admin/setIngredientToRecipe' + '/' + ${ingredient.id} + '/' + ${recipe.id}}" class="btn btn-success btn-sm">Aggiungi</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- Bootstrap Bundle with Popper -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	</body>
 </html>

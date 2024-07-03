@@ -1,5 +1,7 @@
 package it.uniroma3.siw.controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,8 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Chef;
+import it.uniroma3.siw.model.Image;
+import it.uniroma3.siw.repository.ImageRepository;
 import it.uniroma3.siw.service.ChefService;
 import it.uniroma3.siw.validator.ChefValidator;
 import jakarta.validation.Valid;
@@ -22,6 +28,9 @@ public class ChefController {
 	
 	@Autowired
 	private ChefValidator chefValidator;
+	
+	@Autowired
+	private ImageRepository imageRepository;
 	
 	@GetMapping("/chef")
 	public String showChefs(Model model) {
@@ -55,9 +64,13 @@ public class ChefController {
 	
 	@PostMapping("/chef")
 	public String newChef(@Valid @ModelAttribute("chef") Chef chef, 
-			BindingResult bindingResult, Model model) {
+			BindingResult bindingResult, Model model,
+			@RequestParam("file") MultipartFile image) throws IOException {
 		this.chefValidator.validate(chef, bindingResult);
 		if(!bindingResult.hasErrors()) {
+			Image img = new Image(image.getBytes());
+			this.imageRepository.save(img);
+			chef.setImage(img);
 			this.chefService.save(chef);
 			model.addAttribute("chef", chef);
 			return "redirect:chef/"+chef.getId();

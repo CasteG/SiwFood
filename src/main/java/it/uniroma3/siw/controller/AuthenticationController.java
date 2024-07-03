@@ -39,6 +39,31 @@ public class AuthenticationController {
 		return "formRegisterUser.html";
 	}
 	
+	 @PostMapping("/register")
+	    public String registerUser(@Valid @ModelAttribute("user") User user,
+	                 BindingResult userBindingResult,
+	                 @Valid @ModelAttribute("credentials") Credentials credentials,
+	                 BindingResult credentialsBindingResult,
+	                 Model model) {
+
+	        // valida user e credenziali
+	        this.userValidator.validate(user, userBindingResult);
+	        this.credentialsValidator.validate(credentials, credentialsBindingResult);
+
+	        //se entrambi passano la validazione, salvali nel database
+	        if(!userBindingResult.hasErrors() && ! credentialsBindingResult.hasErrors()) {
+	        	//imposta lo User e salva le credenziali
+	        	//lo User viene automaticamente salvato grazie a cascade.ALL
+	            credentials.setUser(user);
+	            credentialsService.saveCredentials(credentials);
+	            model.addAttribute("user",user);
+	            return "registrationSuccessful.html";
+	        }
+	        model.addAttribute("user", user);
+	        model.addAttribute("credentials", credentials);
+	        return "formRegisterUser.html";
+	    }
+	
 	@GetMapping("/login")
 	public String showLoginForm(Model model) {
 		return "formLogin.html";
@@ -87,34 +112,5 @@ public class AuthenticationController {
         }
         return "index.html";
     }
-
-	
-    @PostMapping("/register")
-    public String registerUser(@Valid @ModelAttribute("user") User user,
-                 BindingResult userBindingResult,
-                 @Valid @ModelAttribute("credentials") Credentials credentials,
-                 BindingResult credentialsBindingResult,
-                 Model model) {
-
-        // valida user e credenziali
-        this.userValidator.validate(user, userBindingResult);
-        this.credentialsValidator.validate(credentials, credentialsBindingResult);
-
-        //se entrambi passano la validazione, salvali nel database
-        if(!userBindingResult.hasErrors() && ! credentialsBindingResult.hasErrors()) {
-        	//imposta lo User e salva le credenziali
-        	//lo User viene automaticamente salvato grazie a cascade.ALL
-            credentials.setUser(user);
-            credentialsService.saveCredentials(credentials);
-            model.addAttribute("user",user);
-            return "registrationSuccessful.html";
-        }
-        return "formRegisterUser.html";
-    }
-
-
-	
-	
-	
 	
 }

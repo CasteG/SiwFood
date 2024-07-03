@@ -1,57 +1,79 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-	<title>
-		SiwMovie - Registrazione
-	</title>
-	<link rel="stylesheet" href="/css/stile.css" />
+    <meta charset="UTF-8">
+    <title>Register User</title>
+    <div th:replace="~{fragments :: Stylesheet}"></div>
 </head>
 
 <body>
-
-	<div>
-    <div><a href="/">Home</a></div>
-	</div>
-	<h1>Registrazione nuovo utente</h1>
-	<form th:action="@{/register}" method="POST">
-		<div>
-			<label>Username</label>
-			<span>
-				<input type="text" placeholder="username" th:field="${credentials.username}" />
-			</span>
-			<span th:if="${#fields.hasErrors('credentials.username')}" th:errors="*{credentials.username}"
-				th:style="'color:red'">
-			</span>
-		</div>
-		<div>
-			<label>Password</label>
-			<span><input type="password" placeholder="password" th:field="${credentials.password}" />
-			</span>
-			<span th:if="${#fields.hasErrors('credentials.password')}" th:errors="*{credentials.password}"
-				th:style="'color:red'">
-			</span>
-		</div>
-		<div>
-			<label>Nome</label>
-			<span><input type="text" placeholder="nome" th:field="${user.firstName}" /></span>
-			<span th:if="${#fields.hasErrors('user.firstName')}" th:errors="*{user.firstName}" th:style="'color:red'">
-			</span>
-		</div>
-		<div>
-			<label>Cognome</label>
-			<span><input type="text" placeholder="cognome" th:field="${user.lastName}" /></span>
-			<span th:if="${#fields.hasErrors('user.lastName')}" th:errors="*{user.lastName}" th:style="'color:red'">
-			</span>
-		</div>
-		<div>
-			<button type="submit">Registrati</button>
-		</div>
-		<br>
-		<div>
-			Sei già registrato? <a th:href="@{/login}"> Fai l'accesso qui</a>
-		</div>
-	</form>
+    <div th:replace="~{fragments :: Navbar}"></div>
+    <section class="generic_section">
+        <div class="container">
+            <h1 class="text-center text-uppercase fw-bolder pt-3">Registrazione nuovo utente</h1>
+            <div class="row justify-content-center">
+                <div class="col-md-6 mb-5">
+                    <div class="container my-3">
+                        <div class="form_container">
+                            <form th:action="@{/register}" method="POST" th:object="${user}">
+							<!-- USER -->
+								 <!-- Sezione per la validazione -->
+                                <div th:if="${#fields.hasGlobalErrors()}">
+                                    <p th:each="err : ${#fields.globalErrors()}" th:text="${err}" class="text-danger">...</p>
+                                </div>
+                                <!-- NOME -->
+                                <div class="mb-2">
+                                    <label for="firstName" class="form-label">Nome:</label>
+                                    <input type="text" th:field="*{firstName}" class="form-control" id="firstName" placeholder="Carlo">
+                                    <!-- Sezione per la validazione -->
+                                    <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="text-danger"></span>
+                                </div>
+                                <!-- COGNOME -->
+                                <div class="mb-2">
+                                    <label for="lastName" class="form-label">Cognome:</label>
+                                    <input type="text" th:field="*{lastName}" class="form-control" id="lastName" placeholder="Cracco">
+                                    <!-- Sezione per la validazione -->
+                                    <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="text-danger"></span>
+                                </div>
+                                
+                                <!-- CREDENTIALS -->
+                                <div th:object="${credentials}">
+										
+									<!-- Sezione per la validazione -->
+	                                <div th:if="${#fields.hasGlobalErrors()}">
+	                                    <p th:each="err : ${#fields.globalErrors()}" th:text="${err}" class="text-danger">...</p>
+	                                </div>
+	                                <!-- USERNAME -->
+	                                <div class="mb-2">
+	                                    <label for="username" class="form-label">Username:</label>
+	                                    <input type="text" th:field="*{username}" class="form-control" id="username" placeholder="carloCracco96">
+	                                    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></span>
+	                                </div>
+	                                <!-- PASSWORD -->
+	                                <div class="mb-2">
+	                                    <label for="password" class="form-label">Password:</label>
+	                                    <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="password">
+	                                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
+	                                </div>
+                            	</div>
+                            <!-- CONFERMA -->
+                            <div>
+                                <button type="submit" class="btn btn-primary me-2 mt-3">Registrati</button>
+                            </div>
+                                <br>
+                                <!-- LOGIN -->
+                                <div>
+                                    Sei già registrato? <a th:href="@{/login}"> Fai l'accesso qui</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
-
 </html>

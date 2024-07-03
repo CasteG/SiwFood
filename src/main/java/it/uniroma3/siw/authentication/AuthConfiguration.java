@@ -1,6 +1,7 @@
 package it.uniroma3.siw.authentication;
 
 import static it.uniroma3.siw.model.Credentials.ADMIN_ROLE;
+import static it.uniroma3.siw.model.Credentials.DEFAULT_ROLE;
 
 import javax.sql.DataSource;
 
@@ -49,6 +50,10 @@ public class AuthConfiguration {
 										"/recipe/**", "/chef", "/chef/**", "/ingredient", "/ingredient/**", "/formSearchRecipe", "favicon.ico").permitAll()
 		// chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register 
 		.requestMatchers(HttpMethod.POST,"/register", "/login", "searchRecipe", "chef", "/ingredient").permitAll()
+		// gli utenti loggati (cuochi) possono aggiungere ricette e ingredienti
+		.requestMatchers(HttpMethod.GET,"/admin/formNewRecipe", "/admin/formNewIngredient", "/admin/manageRecipes", "/admin/formUpdateRecipe/**", "/admin/removeRecipe/**", "/admin/updateIngredients/**", "/admin/setChefToRecipe/**", "/admin/setIngredientToRecipe/**", "/admin/removeIngredientFromRecipe/**").hasAnyAuthority(DEFAULT_ROLE)
+		.requestMatchers(HttpMethod.POST,"/admin/formNewRecipe", "/admin/formNewIngredient", "/admin/manageRecipes", "/admin/formUpdateRecipe/**", "/admin/removeRecipe/**", "/admin/updateIngredients/**", "/admin/setChefToRecipe/**", "/admin/setIngredientToRecipe/**", "/admin/removeIngredientFromRecipe/**").hasAnyAuthority(DEFAULT_ROLE)
+		// l'admin può accedere a tutte le risorse protette
 		.requestMatchers(HttpMethod.GET,"/admin/**").hasAnyAuthority(ADMIN_ROLE)
 		.requestMatchers(HttpMethod.POST,"/admin/**").hasAnyAuthority(ADMIN_ROLE)
 		// tutti gli utenti autenticati possono accere alle pagine rimanenti 

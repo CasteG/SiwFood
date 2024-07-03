@@ -1,0 +1,223 @@
+.center-logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.center-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.text-danger {
+	color: red !important;
+}
+
+body {
+    background-size: cover; /* Adatta l'immagine di sfondo per coprire l'intera area */
+    background-repeat: no-repeat; /* Impedisce la ripetizione dell'immagine */
+    background-attachment: fixed; /* Rende lo sfondo fisso durante lo scroll */
+}
+
+.recipes-background-block {
+    position: relative;
+    background-image: url('/images/seafood-background1.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.recipes-background-block::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.65); /* Semi-transparent overlay */
+}
+
+.recipes-background-content {
+    position: relative;
+    z-index: 1;
+}
+
+.recipes-background-content h1 {
+    margin-bottom: 20px; /* Spazio tra h1 e la descrizione */
+}
+
+.recipes-background-content p {
+    font-size: 1.2rem; /* Aumenta la dimensione del font */
+    margin-bottom: 20px; /* Spazio tra la descrizione e il bottone */
+}
+
+
+.chefs-background-block {
+    position: relative;
+    background-image: url('/images/chefs4.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.chefs-background-block::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.65); /* Semi-transparent overlay */
+}
+
+.chefs-background-content {
+    position: relative;
+    z-index: 1;
+}
+
+.chefs-background-content h1 {
+    margin-bottom: 20px; /* Spazio tra h1 e la descrizione */
+}
+
+.chefs-background-content p {
+    font-size: 1.2rem; /* Aumenta la dimensione del font */
+    margin-bottom: 20px; /* Spazio tra la descrizione e il bottone */
+}
+
+
+.ingredients-background-block {
+    position: relative;
+    background-image: url('/images/ing.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.ingredients-background-block::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
+}
+
+.btn-primary {
+            position: relative;
+            padding-right: 30px; /* Spazio per l'icona */
+        }
+        
+.btn-primary i {
+    position: absolute;
+    top: 50%;
+    right: 10px; /* Distanza dalla destra del pulsante */
+    transform: translateY(-50%);
+}
+
+.btn-primary:hover i {
+    transform: translateY(-50%) translateX(8px); /* Aggiungi un po' di spazio quando passi sopra */
+}
+
+.horizontal-line {
+    border: none;
+    border-top: 2px solid white; /* Colore e spessore della riga */
+    margin: 2                                                                    0px auto; /* Spazio sopra e sotto la riga */
+    width: 100%; /* Larghezza al 100% del contenitore */
+}
+
+.recipe-details {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 15px;
+    border-radius: 5px;
+    max-width: 600px;
+    margin: 30px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-details h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #343a40;
+}
+
+.recipe-details h2 {
+        font-size: 2 rem;
+        margin-bottom: 10px;
+        color: #343a40;
+        font-style: italic; /* Corsivo */
+        color: #8FB7BB;
+    }
+    
+.recipe-details img {
+    max-width: 100%; /* Impedisce all'immagine di superare la larghezza della box */
+    height: auto; /* Mantiene l'aspetto proporzionale */
+    margin-bottom: 10px; /* Aggiunge spazio sotto l'immagine */
+    border-radius: 5px; /* Bordo arrotondato per l'immagine */
+}
+
+.recipe-details p {
+    font-size: 1.2rem;
+    color: #6c757d;
+}
+
+.chef-box {
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.chef-image {
+    width: 150px; 
+    height: 150px; 
+    object-fit: cover;
+    border-radius: 50%; /* Per rendere l'immagine rotonda */
+    margin-bottom: 10px;
+}
+
+.recipe-image {
+    max-width: 100%; /* Massima larghezza per l'immagine */
+    border: 1px solid #dee2e6; /* Bordo sottile grigio */
+    border-radius: 8px; /* Bordo arrotondato */
+    overflow: hidden; /* Nascondi overflow */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+}
+
+.recipe-image img {
+    width: 100%; /* Larghezza immagine al 100% */
+    height: auto; /* Altezza automatica */
+    display: block; /* Per allineare correttamente l'immagine */
+}
+
+.recipe-details ul {
+    list-style-position: inside; /* Posiziona i puntini all'interno del box */
+    text-align: center; /* Allinea il testo al centro */
+}
+
+.recipe-details li {
+    text-align: center; /* Allinea ogni elemento della lista al centro */
+    margin-bottom: 5px; /* Aggiunge spazio tra gli elementi della lista */
+}

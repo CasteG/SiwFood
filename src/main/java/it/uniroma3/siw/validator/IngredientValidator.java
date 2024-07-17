@@ -18,9 +18,6 @@ public class IngredientValidator implements Validator {
 	public void validate(Object o, Errors errors) {
 		Ingredient ing = (Ingredient) o;
 		
-		if (ing.getName() == null || ing.getName().trim().isEmpty())
-	        errors.reject("ingredient.empty");
-		
 		if(ing.getName()!=null && this.ingredientRepository.existsByName(ing.getName())) {
 			errors.reject("ingredient.duplicate");
 		}

@@ -1,16 +1,22 @@
 package it.uniroma3.siw.validator;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import it.uniroma3.siw.model.User;
+import it.uniroma3.siw.service.UserService;
 
 @Component
 public class UserValidator implements Validator {
+	
+    @Autowired
+	private UserService userService;
 
     final Integer MAX_NAME_LENGTH = 30;
     final Integer MIN_NAME_LENGTH = 4;
+    
 
     @Override
     public void validate(Object o, Errors errors) {
@@ -27,6 +33,7 @@ public class UserValidator implements Validator {
             errors.reject("user.emptyLastName");
         else if (lastName.length() < MIN_NAME_LENGTH || lastName.length() > MAX_NAME_LENGTH)
             errors.reject("user.incorrectLengthLastName");
+        
     }
 
     @Override

@@ -6,47 +6,15 @@
     <div th:replace="~{fragments :: Stylesheet}"></div>
     
     
-     <style>
-        body {
-            background-color: #8FB7BB; /* Sfondo celeste */
-            padding-top: 20px; /* Padding in alto per separare dal menu */
-        }
-
-        .container {
-            background-color: #ffffff; /* Sfondo bianco per il contenitore */
-            padding: 20px; /* Spaziatura interna */
-            border-radius: 10px; /* Bordo arrotondato */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombra leggera */
-        }
-
-        .form_container {
-            background-color: #f8f9fa; /* Sfondo grigio chiaro per il form */
-            padding: 20px; /* Spaziatura interna */
-            border-radius: 5px; /* Bordo arrotondato */
-        }
-
-        /* Stile per i messaggi di errore */
-        .text-danger {
-            font-weight: bold; /* Testo in grassetto */
-        }
-
-        /* Stile per i pulsanti */
-        .btn-info {
-            background-color: #8FB7BB; /* Colore di sfondo azzurro */
-            border-color: #17a2b8; /* Colore del bordo azzurro */
-        }
-
-        .btn-info:hover {
-            background-color: #138496; /* Colore di sfondo azzurro più scuro al passaggio del mouse */
-            border-color: #117a8b; /* Colore del bordo azzurro più scuro al passaggio del mouse */
-        }
-    </style>
  </head>
 
  <body>
-     <div th:replace="~{fragments :: Navbar}"></div>
+	<!-- Navbar -->
+	<div th:if="${role!=null && role=='ADMIN'}"><div th:replace="~{fragments :: NavbarAdmin}"></div></div>
+	<div th:if="${role!=null && role=='DEFAULT'}"><div th:replace="~{fragments :: NavbarUser}"></div></div>
+	<div th:if="${#authorization.expression('isAnonymous()')}"><div th:replace="~{fragments :: NavbarAnonymous}"></div></div>
     
-    <section class="generic_section">
+    <section class="generic_section all-margin-top-section">
         <div class="container">
             <h1 class="text-center text-uppercase fw-bolder pt-3">Cerca ricetta</h1>        
             <div class="row justify-content-center">
@@ -72,6 +40,9 @@
             </div>
         </div>
     </section>
+    
+	 <div th:replace="~{fragments :: Footer}"></div>
+
 
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

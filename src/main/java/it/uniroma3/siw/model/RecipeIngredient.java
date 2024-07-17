@@ -18,6 +18,7 @@ public class RecipeIngredient {
 		this.recipe = recipe;
 		this.ingredient = ingredient;
 		this.quantity = 0;
+		this.unit = "";
 	}
 
 	@Id 
@@ -34,6 +35,8 @@ public class RecipeIngredient {
     
     @PositiveOrZero
     private int quantity;
+    
+    private String unit;
 
 	public Long getId() {
 		return id;
@@ -66,29 +69,17 @@ public class RecipeIngredient {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	public String getUnit() {
+        return unit;
+    }
 
-	@Override
-	public String toString() {
-		return ingredient.toString() + " (" + quantity + ")";
-	}
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
 
-//	@Override
-//	public int hashCode() {
-//		return Objects.hash(ingredient, recipe);
-//	}
-//
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (this == obj)
-//			return true;
-//		if (obj == null)
-//			return false;
-//		if (getClass() != obj.getClass())
-//			return false;
-//		RecipeIngredient other = (RecipeIngredient) obj;
-//		return Objects.equals(ingredient, other.ingredient) && Objects.equals(recipe, other.recipe);
-//	}
-
-
+    @Override
+    public String toString() {
+        return ingredient.toString() + " (" + quantity + " " + unit + ")";
+    }
 
 }

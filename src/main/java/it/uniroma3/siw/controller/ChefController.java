@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller;
 
 import java.io.IOException;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +16,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Chef;
 import it.uniroma3.siw.model.Image;
+import it.uniroma3.siw.model.Recipe;
 import it.uniroma3.siw.repository.ImageRepository;
 import it.uniroma3.siw.service.ChefService;
+import it.uniroma3.siw.service.RecipeService;
 import it.uniroma3.siw.validator.ChefValidator;
 import jakarta.validation.Valid;
 
@@ -31,6 +34,9 @@ public class ChefController {
 	
 	@Autowired
 	private ImageRepository imageRepository;
+
+	@Autowired
+	private RecipeService recipeService;
 	
 	@GetMapping("/chef")
 	public String showChefs(Model model) {
@@ -40,6 +46,8 @@ public class ChefController {
 	
 	@GetMapping("/chef/{id}")
 	public String getChef(@PathVariable("id") Long id, Model model) {
+		Set<Recipe> designedRecipes = this.recipeService.findByChefId(id);
+		model.addAttribute("designedRecipes", designedRecipes);
 		model.addAttribute("chef", chefService.findById(id));
 		return "chef.html";
 	}

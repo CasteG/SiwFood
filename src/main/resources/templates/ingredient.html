@@ -6,9 +6,11 @@
 </head>
 
 <body>
-    <div>
-    <div><a href="/">Home</a></div>
-    </div>
+	<!-- Navbar -->
+	<div th:if="${role!=null && role=='ADMIN'}"><div th:replace="~{fragments :: NavbarAdmin}"></div></div>
+	<div th:if="${role!=null && role=='DEFAULT'}"><div th:replace="~{fragments :: NavbarUser}"></div></div>
+	<div th:if="${#authorization.expression('isAnonymous()')}"><div th:replace="~{fragments :: NavbarAnonymous}"></div></div>
+
     <div th:if="${ingredient}">
         <h1 th:text="${ingredient.name} "></h1>
     </div>

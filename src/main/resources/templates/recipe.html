@@ -7,7 +7,11 @@
 
 </head>
 <body>
-    <div th:replace="~{fragments :: Navbar}"></div>
+	<!-- Navbar -->
+	<div th:if="${role!=null && role=='ADMIN'}"><div th:replace="~{fragments :: NavbarAdmin}"></div></div>
+	<div th:if="${role!=null && role=='DEFAULT'}"><div th:replace="~{fragments :: NavbarUser}"></div></div>
+	<div th:if="${#authorization.expression('isAnonymous()')}"><div th:replace="~{fragments :: NavbarAnonymous}"></div></div>
+
     <div class="text-center">
         <div th:if="${recipe}" class="recipe-details">
             <h1 th:text="${recipe.name}"></h1>
@@ -24,7 +28,8 @@
                 <ul>
                     <li th:each="recIngredient : ${recipe.recipeIngredients}">
                         <span th:text="${recIngredient.ingredient}"></span>
-                        <span th:if="${recIngredient.quantity != 0}" th:text="' (' + ${recIngredient.quantity} + ')'"></span>
+                        <span th:if="${recIngredient.quantity != 0}" th:text="' (' + ${recIngredient.quantity}"></span>
+                        <span th:if="${recIngredient.unit != ''}" th:text="' ' + ${recIngredient.unit} + ')' "></span>
                     </li>
                 </ul>
             </div>
@@ -32,6 +37,8 @@
         <div th:unless="${recipe}">Non esiste</div>
     </div>
     
+	 <div th:replace="~{fragments :: Footer}"></div>
+
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

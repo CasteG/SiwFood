@@ -1,3 +1,15 @@
+/**** USERNAME NAVBAR ****/
+
+.username-item .nav-link {
+  font-weight: bold;
+  color: rgb(128, 0, 64); 
+  padding-left: 10px; 
+}
+
+.username-item .nav-link:hover {
+  color: rgb(206, 0, 0); /* Colore al passaggio del mouse */
+}
+
 .center-logo {
   display: block;
   margin-left: auto;
@@ -20,9 +32,16 @@ body {
     background-attachment: fixed; /* Rende lo sfondo fisso durante lo scroll */
 }
 
+/*** margine dopo la navbar ***/
+.all-margin-top-section {
+    	margin-top: 50px; /* Puoi regolare il valore in base alle tue esigenze */
+		}
+
+/***** RECIPE *****/
+
 .recipes-background-block {
     position: relative;
-    background-image: url('/images/seafood-background1.jpg');
+    background-image: url('/images/recipe-back.png');
     background-size: cover;
     background-position: center;
     height: 500px;
@@ -58,6 +77,7 @@ body {
     margin-bottom: 20px; /* Spazio tra la descrizione e il bottone */
 }
 
+/***** CHEF *****/
 
 .chefs-background-block {
     position: relative;
@@ -97,10 +117,11 @@ body {
     margin-bottom: 20px; /* Spazio tra la descrizione e il bottone */
 }
 
+/***** INGREDIENT *****/
 
 .ingredients-background-block {
     position: relative;
-    background-image: url('/images/ing.jpg');
+    background-image: url('/images/wooden-spoon.jpg');
     background-size: cover;
     background-position: center;
     height: 500px;
@@ -167,7 +188,7 @@ body {
         color: #343a40;
         font-style: italic; /* Corsivo */
         color: #8FB7BB;
-    }
+}
     
 .recipe-details img {
     max-width: 100%; /* Impedisce all'immagine di superare la larghezza della box */
@@ -220,4 +241,81 @@ body {
 .recipe-details li {
     text-align: center; /* Allinea ogni elemento della lista al centro */
     margin-bottom: 5px; /* Aggiunge spazio tra gli elementi della lista */
+}
+
+.card {
+    border: 1px solid rgb(0, 128, 192);
+    border-radius: 0.5rem;
+}
+
+.card-header {
+    background-color: rgb(0, 128, 192);
+    color: white;
+    border-bottom: 1px solid rgb(0, 128, 192);
+}
+
+.card-footer {
+    background-color: #f8f9fa;
+}
+
+/* FOOTER */
+body {
+    background-color: #8FB7BB; /* Sfondo celeste */
+    padding-top: 0px; /* Padding in alto per separare dal menu */
+}
+
+.container {
+    background-color: #ffffff; /* Sfondo bianco per il contenitore */
+    padding: 20px; /* Spaziatura interna */
+    border-radius: 10px; /* Bordo arrotondato */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+}
+
+.form_container {
+    background-color: #f8f9fa; /* Sfondo grigio chiaro per il form */
+    padding: 20px; /* Spaziatura interna */
+    border-radius: 5px; /* Bordo arrotondato */
+}
+
+/* Stile per i messaggi di errore */
+.text-danger {
+    font-weight: bold; /* Testo in grassetto */
+}
+
+/* Stile per i pulsanti */
+.btn-info {
+    background-color: #8FB7BB; /* Colore di sfondo azzurro */
+    border-color: #17a2b8; /* Colore del bordo azzurro */
+}
+
+.btn-info:hover {
+    background-color: #138496; /* Colore di sfondo azzurro più scuro al passaggio del mouse */
+    border-color: #117a8b; /* Colore del bordo azzurro più scuro al passaggio del mouse */
+}
+
+/* Stile per il footer */
+.footer {
+    background-color: #ffffff; /* Sfondo bianco per il footer */
+    padding: 15px; 
+    border-top: 20px solid #8FB7BB; /* Bordo superiore azzurro */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+}
+
+.footer .contact {
+    color: #8FB7BB; /* Colore del testo azzurro */
+    font-size: 1.5rem; 
+    margin-bottom: 10px; /* margine inferiore */
+}
+
+.footer .info {
+    color: #6c757d; /* Colore del testo grigio */
+    font-size: 0.9rem; 
+}
+
+.footer .social-icons i {
+    color: #8FB7BB; /* Colore delle icone social azzurro */
+}
+
+.footer .social-icons i:hover {
+    color: #138496; /* Colore delle icone social azzurro più scuro al passaggio del mouse */
 }

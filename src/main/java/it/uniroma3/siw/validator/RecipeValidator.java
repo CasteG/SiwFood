@@ -17,10 +17,14 @@ public class RecipeValidator implements Validator {
 	@Override
 	public void validate(Object o, Errors errors) {
 		Recipe recipe = (Recipe) o;
-		if(recipe.getName()!=null && recipe.getChef()!=null
-			&& recipeRepository.existsByNameAndChef(recipe.getName(), recipe.getChef())) {
-			errors.reject("recipe.duplicate");
-		}
+//		if(recipe.getName()!=null && recipe.getChef()!=null
+//			&& recipeRepository.existsByNameAndChef(recipe.getName(), recipe.getChef())) {
+//			errors.reject("recipe.duplicate");
+//		}
+		if(recipe.getName()!=null
+				&& recipeRepository.existsByName(recipe.getName())) {
+				errors.reject("recipe.duplicate");
+			}
 	}
 	
 	/* sezione standard di codice che indica che sto 

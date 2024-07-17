@@ -15,7 +15,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Recipe {
@@ -34,7 +33,6 @@ public class Recipe {
 	private Image image;
 
 	@ManyToOne
-	@NotNull
 	private Chef chef;
 	
 	@OneToMany(mappedBy="recipe", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

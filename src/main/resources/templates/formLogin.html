@@ -4,12 +4,16 @@
 <head>
 	<title>Login Form</title>
 	<div th:replace="~{fragments :: Stylesheet}"></div>
+
 </head>
 
 <body>
-	<div th:replace="~{fragments :: Navbar}"></div>
+	<!-- Navbar -->
+	<div th:if="${role!=null && role=='ADMIN'}"><div th:replace="~{fragments :: NavbarAdmin}"></div></div>
+	<div th:if="${role!=null && role=='DEFAULT'}"><div th:replace="~{fragments :: NavbarUser}"></div></div>
+	<div th:if="${#authorization.expression('isAnonymous()')}"><div th:replace="~{fragments :: NavbarAnonymous}"></div></div>
 	
-	<section class="generic_section">
+	<section class="generic_section all-margin-top-section">
 		<div class="container">
 		<div class="my-5">
 			<h1 class="text-center text-uppercase fw-bolder pt-3">Login</h1>
@@ -21,39 +25,40 @@
 			<div class="container my-3">
 				<div class="form_container">
 					<form th:action="@{/login}" method="POST">
+						<!-- ERRORI -->
+						<div th:if="${errorMessage != null}">
+							<span th:text="${errorMessage}" class="text-danger"></span>
+						</div>
 						<!-- USERNAME -->
 		                <div class="form-group">
-		                    <input type="text" class="form-control my-2" placeholder="Username" name="username" required>
+		                    <input type="text" class="form-control my-2" placeholder="Username" name="username">
 		                </div>
 		                <!-- PASSWORD -->
 		                <div class="form-group">
-		                    <input type="password" class="form-control my-2" placeholder="Password" name="password" required>
+		                    <input type="password" class="form-control my-2" placeholder="Password" name="password">
 		                </div>
 						<!-- CONFERMA -->
 						<div class="d-flex justify-content-between align-items-center">
 		                    <div>
-                                <button type="submit" class="btn btn-primary me-2 mt-3">Accedi</button>
+                                <button type="submit" class="btn btn-info me-2 mt-3">Accedi</button>
 		                    </div>
 		                <!-- REGISTRATI -->
 	                    <div>
 							Non hai un account? <a th:href="@{'/register'}">Registrati qui</a>
 						</div>
-						<!-- ERRORI -->
-						<div th:if="${errorMessage != null}">
-						<span text="${errorMessage}"></span>
-						</div>
-						                    
 						</div>
 					</form>
 		        	</div>
 		    	</div>							
 			 </div>
 			</div>
-			</div>
+		</div>
 		</section>
 		
+		 <div th:replace="~{fragments :: Footer}"></div>
+
 		
 <!-- Bootstrap Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script></div>
-	</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
 </html>

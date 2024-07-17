@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,16 +30,17 @@ public class Chef {
 
 	@NotBlank
 	private String lastName;
-
+	
 	@OneToOne
 	private Image image;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private User user;
 
 	@NotNull
 	@Past
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private LocalDate dateOfBirth;
-
-	//TO DO: fotorafia
 
 	@OneToMany(mappedBy="chef")
 	private Set<Recipe> designedRecipes;
@@ -85,6 +87,14 @@ public class Chef {
 
 	public void setDesignedRecipes(Set<Recipe> designedRecipes) {
 		this.designedRecipes = designedRecipes;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override

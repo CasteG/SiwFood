@@ -28,4 +28,8 @@ public class ChefService {
 		this.chefRepository.delete(chef);
 	}
 
+	public Chef findByFirstNameAndLastName(String firstName, String lastName) {
+		return this.chefRepository.findByFirstNameAndLastName(firstName, lastName);
+	}
+
 }

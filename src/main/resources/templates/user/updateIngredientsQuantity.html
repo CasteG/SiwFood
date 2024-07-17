@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Aggiorna la quantità degli ingredienti</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+    <div th:replace="~{fragments :: Stylesheet}"></div>
+</head>
+<body>
+    <div th:replace="~{fragments :: NavbarAdmin}"></div>
+
+    <div class="text-center">
+        <h1 class="text-uppercase fw-bolder pt-3" th:text="'Aggiorna quantità ingredienti: ' + ${recipe.name}"></h1>
+
+        <form th:action="@{/user/updateIngredientsQuantity/{idRecipe}(idRecipe=${recipe.id})}" method="post" class="mt-4">
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Ingrediente</th>
+                        <th>Quantità</th>
+                        <th>Unità</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="ingredient : ${recipeIngredients}">
+                        <td th:text="${ingredient.ingredient.name}"></td>
+                        <td>
+                            <input type="hidden" name="ingredientIds" th:value="${ingredient.ingredient.id}" />
+                            <input type="number" name="quantities" th:value="${ingredient.quantity}" min="0" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="text" name="units" th:value="${ingredient.unit}" class="form-control" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-success mt-3">Aggiorna ingredienti</button>
+            <br>
+            <br>
+            <br>
+        </form>
+    </div>
+
+    <div th:replace="~{fragments :: Footer}"></div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,30 +1,109 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<title>SiwFood - Homepage</title>
+		<div th:replace="~{fragments :: Stylesheet}"></div>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
 
-<head>
-	<title>
-		SiwMovie - Homepage
-	</title>
-	<link rel="stylesheet" href="/css/stile.css" />
-</head>
-
+	</head>
 <body>
+ <!-- Navbar -->
+  <div th:replace="~{fragments :: NavbarAdmin}"></div>
+  <div th:replace="~{fragments :: Carousel-recipes}"></div>
 
-    <div><a href="/">Home</a></div>
-	<h1>Consulta l'archivio</h1>
-	<div>
-		<a href="/recipe">Elenco ricette</a>
-	</div>
-	<div>
-		<a href="/chef">Elenco cuochi</a>
-	</div>
-	<h1>Operazioni per amministratore</h1>
-	<div>
-		<a href="/admin/indexRecipe">Operazioni sulle ricette</a>
-	</div>
-	<div>
-		<a href="/admin/indexChef">Operazioni sui cuochi</a>
-	</div>
+
+<!-- Marchi di qualità del brand -->
+    <section class="page-section" id="brand-strengths" style="margin-top: 60px;">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">LA NOSTRA ECCELLENZA</h2>
+                <h3 class="section-subheading text-muted mb-5">Qualità certificata da generazioni</h3>
+            </div>
+            <!-- FRESCO -->
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                       <img src="/images/fresco2.png" alt="Fresco" class="img-fluid rounded-circle">
+                    </span>
+                    <h4 class="my-4">Fresco</h4>
+                    <p class="text-muted">Pescato ogni giorno e portato direttamente dal mare alla tua tavola.</p>
+                </div>
+              <!-- SOSTENIBILE -->
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                       <img src="/images/sostenibile.png" alt="Sostenibile" class="img-fluid rounded-circle">
+                    </span>
+                    <h4 class="my-4">Sostenibile</h4>
+                    <p class="text-muted">Da sempre attenti alla pesca responsabile e al rispetto dell'ambiente marino.</p>
+                </div>
+                <!-- SICURO -->
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                          <img src="/images/sicuro.png" alt="Sicuro" class="img-fluid rounded-circle">
+                    </span>
+                    <h4 class="my-4">Sicuro</h4>
+                    <p class="text-muted">Il nostro pescato è sottoposto a rigorosi controlli per garantire la massima sicurezza alimentare.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<!-- RICETTE -->
+	<div class="container mt-5">
+        <div class="recipes-background-block">
+            <div class="recipes-background-content">
+                <h1>Ricette</h1>
+                <hr class="horizontal-line">
+                <p>Una vasta gamma di ricette, dalle più tradizionali alle più innovative, 
+				<br> 
+					tutte pensate per esaltare il sapore unico e inconfondibile del mare.</p>
+                <a href="/recipe" class="btn btn-primary">Scopri di più
+					<!-- freccia dinamica -->
+					<i class="bi bi-arrow-right"></i>
+				</a>
+            </div>
+        </div>
+    </div>
+   
+
+<!-- CUOCHI -->
+	<div class="container mt-5">
+        <div class="chefs-background-block">
+            <div class="chefs-background-content">
+                <h1>Cuochi</h1>
+                <hr class="horizontal-line">
+                <p>Scopri il personale qualificato che si nasconde dietro ogni ricetta</p>
+                <a href="/chef" class="btn btn-primary">Scopri di più
+					<!-- freccia dinamica -->
+					<i class="bi bi-arrow-right"></i>
+				</a>
+            </div>
+        </div>
+    </div>
+    
+<!-- INGREDIENTI -->
+<div class="container mt-5">
+    <div class="ingredients-background-block">
+        <div class="chefs-background-content">
+            <h1>I nostri prodotti</h1>
+            <hr class="horizontal-line">
+            <p>Le nostre ricette sono preparate esclusivamente con ingredienti freschi e selezionati,
+				<br>
+				 garantendo sempre il massimo della qualità e del gusto.</p>
+            <a href="/ingredient" class="btn btn-primary">Scopri di più
+				<!-- freccia dinamica -->
+				<i class="bi bi-arrow-right"></i>
+			</a>
+        </div>
+    </div>
+</div>
+    
+	 <div th:replace="~{fragments :: Footer}"></div>
+
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script></div>
+
+
 </body>
-
 </html>

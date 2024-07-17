@@ -57,6 +57,6 @@ public class IngredientService {
 		this.ingredientRepository.delete(ingredient);
 	}
 
-		
+	
 
 }

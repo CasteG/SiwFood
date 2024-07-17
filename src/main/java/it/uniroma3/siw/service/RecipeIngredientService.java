@@ -1,6 +1,7 @@
 package it.uniroma3.siw.service;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,18 @@ public class RecipeIngredientService {
 	        recipe.getRecipeIngredients().add(recipeIngredient);
 	        this.recipeIngredientRepository.save(recipeIngredient);  // Save to database
 	    }
+	}
+
+	public void delete(RecipeIngredient recipeIng) {
+		this.recipeIngredientRepository.delete(recipeIng);
+	}
+
+	public void deleteByIngredientId(Long id) {
+		this.recipeIngredientRepository.deleteByIngredientId(id);
+	}
+
+	public List<RecipeIngredient> findByIngredient(Ingredient ingredient) {
+		return this.recipeIngredientRepository.findByIngredient(ingredient);
 	}
 
 

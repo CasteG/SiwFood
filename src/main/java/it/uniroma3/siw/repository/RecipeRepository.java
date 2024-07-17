@@ -1,5 +1,8 @@
 package it.uniroma3.siw.repository;
 
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.data.repository.CrudRepository;
 
 import it.uniroma3.siw.model.Chef;
@@ -13,4 +16,10 @@ public interface RecipeRepository extends CrudRepository<Recipe,Long> {
 
 	public Iterable<Recipe> findByChefFirstNameAndChefLastName(String firstName, String lastName);
 
+	public Set<Recipe> findByChefId(Long byId);
+
+	public boolean existsByName(String name);
+	
+	public List<Recipe> findByNameStartingWith(String prefix);
+	
 }

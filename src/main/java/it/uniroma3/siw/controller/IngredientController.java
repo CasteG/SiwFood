@@ -1,5 +1,7 @@
 package it.uniroma3.siw.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.model.Ingredient;
+import it.uniroma3.siw.model.RecipeIngredient;
 import it.uniroma3.siw.service.IngredientService;
+import it.uniroma3.siw.service.RecipeIngredientService;
 import it.uniroma3.siw.validator.IngredientValidator;
 import jakarta.validation.Valid;
 
@@ -19,6 +23,9 @@ public class IngredientController {
 
 	@Autowired
 	private IngredientService ingredientService;
+	
+	@Autowired
+	private RecipeIngredientService recipeIngredientService;
 	
 	@Autowired 
 	private IngredientValidator ingredientValidator;
@@ -43,7 +50,15 @@ public class IngredientController {
 	
 	@GetMapping("/admin/removeIngredient/{id}")
 	public String removeIngredient(@PathVariable("id") Long id, Model model) {
-		this.ingredientService.remove(this.ingredientService.findById(id));
+		Ingredient ingredient = this.ingredientService.findById(id);
+	    
+	    List<RecipeIngredient> recipeIngredients = this.recipeIngredientService.findByIngredient(ingredient);
+	    
+	    for (RecipeIngredient recipeIngredient : recipeIngredients) {
+	        this.recipeIngredientService.delete(recipeIngredient);
+	    }
+	    
+		this.ingredientService.remove(ingredient);
 		return "admin/successfulRemoval.html";
 	}
 	
@@ -51,6 +66,12 @@ public class IngredientController {
 	public String formNewIngredient(Model model) {
 		model.addAttribute("ingredient", new Ingredient());
 		return "admin/formNewIngredient.html";
+	}
+	
+	@GetMapping("/user/formNewIngredient")
+	public String formNewIngredientUser(Model model) {
+		model.addAttribute("ingredient", new Ingredient());
+		return "user/formNewIngredient.html";
 	}
 	
 	@PostMapping("/ingredient")

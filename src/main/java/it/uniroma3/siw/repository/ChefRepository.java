@@ -10,4 +10,6 @@ public interface ChefRepository extends CrudRepository<Chef,Long> {
 	
 	public boolean existsByFirstNameAndLastNameAndDateOfBirth(String firstName, String lastName, LocalDate dateOfBirth);
 
+	public Chef findByFirstNameAndLastName(String firstName, String lastName);
+
 }
